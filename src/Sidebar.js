@@ -4,22 +4,17 @@ import styled from "styled-components";
 import L from "leaflet";
 import getSelectedLocatoinId from './locationGetter';
 import HeatmapLayer from './HeatmapLayer';
-import App from './App';
-import ReactEcharts from 'echarts-for-react';
-import {Map, Marker, TileLayer, Popup,Circle,CircleMarker ,Polygon,Polyline,Rectangle, FeatureGroup,
-    LayerGroup,Tooltip } from "react-leaflet";
+
+
+import {Map, Marker, TileLayer, Popup} from "react-leaflet";
 
 
 //echart
 import asyncComponent from './AsyncComponent'
-import { pieOption, barOption, lineOption, scatterOption, mapOption, radarOption, candlestickOption } from './optionConfig/optionNew'
+import { pieOption, barOption, lineOption  } from './optionConfig/optionNew'
 const PieReact = asyncComponent(() => import(/* webpackChunkName: "Pie" */'./EchartsDemo/PieReact'))  //饼图组件
 const BarReact = asyncComponent(() => import(/* webpackChunkName: "Bar" */'./EchartsDemo/BarReact')) //柱状图组件
 const LineReact = asyncComponent(() => import(/* webpackChunkName: "Line" */'./EchartsDemo/LineReact'))  //折线图组件
-const ScatterReact = asyncComponent(() => import(/* webpackChunkName: "Scatter" */'./EchartsDemo/ScatterReact'))  //散点图组件
-const MapReact = asyncComponent(() => import(/* webpackChunkName: "Map" */'./EchartsDemo/MapReact'))  //地图组件
-const RadarReact = asyncComponent(() => import(/* webpackChunkName: "Radar" */'./EchartsDemo/RadarReact')) //雷达图组件
-const CandlestickReact = asyncComponent(() => import(/* webpackChunkName: "Candlestick" */'./EchartsDemo/CandlestickReact')) //k线图组件
 
 
 const MapContainer = styled(Map)`
@@ -59,8 +54,8 @@ function Sidebar({selectedLocationId, observationLocations  }) {
 
          <h1>weather</h1>
          <pre>{loc && JSON.stringify(loc.info, null, 4)}</pre>
-         <h>{time}</h>< br/>
-         <h>{Climate}</h>
+         <h1>{time}</h1>< br/>
+         <h1>{Climate}</h1>
         </div>
 
     );
@@ -77,10 +72,7 @@ function getTimeFormat(time){
     var result = (Y+M+D+h+m+s);
     return result;
 }
-function showDetails(){
-    console.log("detail");
 
-}
 function checkCharts(selectedLocation,observationLocations){
     const chartVal=(
         <div>
@@ -107,15 +99,16 @@ function checkCharts(selectedLocation,observationLocations){
         </div>,
         document.getElementById('root')
     );
+
 }
 function Modify(selectedLocation,observationLocations,option) {
     //drawMap(Map_Leaf);
     //var map_val = getMap();
 
     var map_val = null;
-    if(option=="MarkerMap"){
+    if(option==="MarkerMap"){
         map_val=MarkerMap(observationLocations);
-    }else if(option=="HeatMap"){
+    }else if(option==="HeatMap"){
         map_val =heatMap(observationLocations);
     }
 
@@ -130,9 +123,9 @@ function Modify(selectedLocation,observationLocations,option) {
     );
 }
 function getPointsInfo(observationLocations){
-    var points = new Array();
+    var points = [];
     for(var i=0;i<observationLocations.length;i++){
-        var tempArray = new Array();
+        var tempArray = [];
         var lat = observationLocations[i].position.lat;
         var lon = observationLocations[i].position.lon;
         var temperature = (parseFloat(observationLocations[i].data.t.timeValuePairs[24].value)+100)*1000;
@@ -143,92 +136,9 @@ function getPointsInfo(observationLocations){
     }
     return points;
 }
-function getWeather(observationLocations){
-    var points = new Array();
-    for(var i=0;i<observationLocations.length;i++){
-        var tempArray = new Array();
-        var lat = observationLocations[i].position.lat;
-        var lon = observationLocations[i].position.lon;
-        var temperature = (parseFloat(observationLocations[i].data.t.timeValuePairs[24].value) ) ;
-        //tempArray.push(lat);
-        //tempArray.push(lon);
-        tempArray.push(temperature);
-        points.push(tempArray);
-    }
-    return points;
-}
-function getLoc(observationLocations){
-    var points = new Array();
-    for(var i=0;i<observationLocations.length;i++){
-        var tempArray = new Array();
-        var lat = observationLocations[i].position.lat;
-        var lon = observationLocations[i].position.lon;
-        //var temperature = (parseFloat(observationLocations[i].data.t.timeValuePairs[24].value) ) ;
-         tempArray.push(lat);
-         tempArray.push(lon);
-        //tempArray.push(temperature);
-        points.push(tempArray);
-    }
-    return points;
-}
 
-function getSnow(observationLocations){
-    var points = new Array();
-    for(var i=0;i<observationLocations.length;i++){
-        var tempArray = new Array();
-        var lat = observationLocations[i].position.lat;
-        var lon = observationLocations[i].position.lon;
-        var temperature = (parseFloat(observationLocations[i].data.snowdepth.timeValuePairs[24].value) ) ;
-        //tempArray.push(lat);
-        //tempArray.push(lon);
-        tempArray.push(temperature);
-        points.push(tempArray);
-    }
-    return points;
-}
-function getName(observationLocations){
-    var points = new Array();
-    for(var i=0;i<observationLocations.length;i++){
-        var tempArray = new Array();
-        var lat = observationLocations[i].position.lat;
-        var lon = observationLocations[i].position.lon;
-        var temperature = ( (observationLocations[i].info.name) );
-        //tempArray.push(lat);
-        //tempArray.push(lon);
-        tempArray.push(temperature);
-        points.push(tempArray);
-    }
-    return points;
-}
-function getRegion(observationLocations){
-    var points = new Array();
-    for(var i=0;i<observationLocations.length;i++){
-        var tempArray = new Array();
-        var lat = observationLocations[i].position.lat;
-        var lon = observationLocations[i].position.lon;
-        var temperature = ( (observationLocations[i].info.region) );
-        //tempArray.push(lat);
-        //tempArray.push(lon);
-        tempArray.push(temperature);
-        points.push(tempArray);
-    }
-    return points;
-}
+ 
 
-function getPrecipation(observationLocations){
-    var points = new Array();
-    for(var i=0;i<observationLocations.length;i++){
-        var tempArray = new Array();
-        var lat = observationLocations[i].position.lat;
-        var lon = observationLocations[i].position.lon;
-        var temperature = (parseFloat(observationLocations[i].data.r_1h.timeValuePairs[24].value) ) ;
-        tempArray.push(lat);
-        tempArray.push(lon);
-        tempArray.push(temperature);
-        points.push(tempArray);
-    }
-    return points;
-}
 function MarkerMap(observationLocations){//return map
     const map = (
         <MapContainer center={[65,26]} zoom={6}>
@@ -263,8 +173,6 @@ function MarkerMap(observationLocations){//return map
 function heatMap(observationLocations){
 
     var getPoints = getPointsInfo(observationLocations);
-
-    var getLocations = getLoc(observationLocations);
 
  const heat_map=(
    <MapContainer center={[65,26]} zoom={5}>
