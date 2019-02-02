@@ -85,7 +85,7 @@ function App() {
               <Popup>
               <span> <b>{[loc.info.name]}</b><br />
                     Weather: {loc && JSON.stringify(loc.data.t.timeValuePairs[ (loc.data.t.timeValuePairs).length-1].value)}c<br />
-                    Snow: {loc && JSON.stringify(loc.data.snowdepth.timeValuePairs[(loc.data.t.timeValuePairs).length-1].value)}mm <br />
+                    Snow: {loc && JSON.stringify(loc.data.snowdepth.timeValuePairs[(loc.data.t.timeValuePairs).length-1].value)+" "}mm <br />
                     Location:({ (loc.position.lat)},{loc.position.lon})<br/>
                     Time:{getTime(loc.data.t.timeValuePairs[ (loc.data.t.timeValuePairs).length-1].time) }
                   </span>
