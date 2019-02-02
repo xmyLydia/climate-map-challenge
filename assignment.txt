@@ -7,10 +7,11 @@
    (2) Heat Map: I used the heatMap component in order to visualize the climate difference clearly, 
 	   heat map is able to show user which part is colder, which location is warmer.
    (3) Charts: When user click charts, there will be 3 charts shown about the real-time analysis： 
-       a) First is pie chart, I analysis the climate from latest record, (also it can be real time analysis if I add some data process code then)
-	      partition those records to -40℃~-30℃,-30℃~-20℃,-20℃~-10℃,-10℃~-0℃, >0℃,,
+           a) First is pie chart, I analysis the climate from latest record:
+	      partition those records to -40℃~-30℃,-30℃~-20℃,-20℃~-10℃,-10℃~-0℃, >0℃,
+	      it shows the proportion of different temperature zones in the pie chart.
 	      Analysis result such as: result shows 72.46% locations' climate is -20℃~-10℃, no location's climate is higher than 0℃ 
-	   b) Second one is Climate Bar Chart, it directly shows the difference for different locations on climate.
+	   b) Second one is Climate Bar Chart, it directly shows the difference for different locations on climate recorded on the latest                 hour.
 	      Such as: Kemijärven pienlentokenttä has the lowest climate: -33.2℃, Maarianhamina Länsisatama has highest climate: -4.9℃
 	   c) Third one is line chart, I analysised 5 locations snow depth on that day, and shown them with stacked area map.
 	      Such as: It shows that Lohja Porla has max snow depth among those 5 locations, which is 38 mm
