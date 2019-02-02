@@ -377,7 +377,7 @@ function checkCharts(selectedLocation,observationLocations){
         <PieReact option={pieOption} />
         <hr/>
 
-        <h2>Climate Bar Chart</h2>
+        <h2>Climate Bar Chart ℃</h2>
         <BarReact option={barOption} />
         <hr/>
 
