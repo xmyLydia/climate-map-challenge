@@ -1,0 +1,24 @@
+//Name: Mingyue Xie  Email: mingyux@uef.fi
+1. The bug I found is located in App.js: in line 52, latitude and longitude are stored in wrong order,
+   it should be  const [lat, lon] = loc.info.position.map(parseFloat);
+2. I added 3 features on the user interacton, it can be checked by PNG files under ./result directory: 
+   (1) Marker Map: it basically shows the location with blue marker, when user clicks the marker, 
+       real-time and detailed information will pop up, such as climate, snow depth, location name, time
+   (2) Heat Map: I used the heatMap component in order to visualize the climate difference clearly, 
+	   heat map is able to show user which part is colder, which location is warmer.
+   (3) Charts: When user click charts, there will be 3 charts shown about the real-time analysis： 
+           a) First is pie chart, I analysis the climate from latest record:
+	      partition those records to -40℃~-30℃,-30℃~-20℃,-20℃~-10℃,-10℃~-0℃, >0℃,
+	      it shows the proportion of different temperature zones in the pie chart.
+	      Analysis result such as: result shows 72.46% locations' climate is -20℃~-10℃, no location's climate is higher than 0℃ 
+	   b) Second one is Climate Bar Chart, it directly shows the difference for different locations on climate recorded on the latest                 hour.
+	      Such as: Kemijärven pienlentokenttä has the lowest climate: -33.2℃, Maarianhamina Länsisatama has highest climate: -4.9℃
+	   c) Third one is line chart, I analysised 5 locations snow depth on that day, and shown them with stacked area map.
+	      Such as: It shows that Lohja Porla has max snow depth among those 5 locations, which is 38 mm
+3. What can be improved: I think if I go deeper, data analysis such as clustering, it can be used to find out which locatios are more similar to each other.
+   Also more functions and interesting user interactions can be applied. 
+   Thank you for providing this chance to exercise me and also, I have learned many new things during this challenge.
+    
+Reference:
+1) Heat Map: https://github.com/OpenGov/react-leaflet-heatmap-layer/blob/master/src/HeatmapLayer.js 
+2) Echart : https://github.com/react-love/react-echarts-modules

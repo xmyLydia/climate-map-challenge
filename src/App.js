@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Metolib from '@fmidev/metolib';
 import './App.css';
-import {Map, Marker, TileLayer} from "react-leaflet";
+import {Map, Marker, TileLayer, Popup} from "react-leaflet";
 import styled from "styled-components";
 import L from "leaflet";
 import Sidebar from './Sidebar';
@@ -23,7 +23,18 @@ L.Icon.Default.mergeOptions({
   shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
 });
 
+function getTime(unixTime){
 
+    var date = new Date(unixTime);
+    var Y = date.getFullYear() + '-';
+    var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+    var D = date.getDate() + ' ';
+    var h = date.getHours() + ':';
+    var m = date.getMinutes() + ':';
+    var s = date.getSeconds();
+    var result = (Y+M+D+h+m+s);
+    return result;
+}
 function App() {
   const [observationLocations, setObservationLocations] = useState([]);
 
@@ -49,7 +60,7 @@ function App() {
 
           setObservationLocations(data.locations
             .map(loc => {
-              const [lon, lat] = loc.info.position.map(parseFloat);
+              const [lat, lon] = loc.info.position.map(parseFloat);
               return {...loc, position: {lat, lon}}
             })
           );
@@ -71,6 +82,15 @@ function App() {
       />
       {observationLocations.map(loc => <Marker position={[loc.position.lat, loc.position.lon]}
                                                key={loc.info.id} onClick={() => setSelectedLocation(loc.info.id)}>
+              <Popup>
+              <span> <b>{[loc.info.name]}</b><br />
+                    Weather: {loc && JSON.stringify(loc.data.t.timeValuePairs[ (loc.data.t.timeValuePairs).length-1].value)}c<br />
+                    Snow: {loc && JSON.stringify(loc.data.snowdepth.timeValuePairs[(loc.data.t.timeValuePairs).length-1].value)+" "}mm <br />
+                    Location:({ (loc.position.lat)},{loc.position.lon})<br/>
+                    Time:{getTime(loc.data.t.timeValuePairs[ (loc.data.t.timeValuePairs).length-1].time) }
+                  </span>
+
+           </Popup>
       </Marker>)}
     </MapContainer>
   );
